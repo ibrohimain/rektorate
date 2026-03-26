@@ -2,6 +2,7 @@ export interface UserProfile {
   uid: string;
   email: string;
   fullName: string;
+  photoUrl?: string;
   phone1: string;
   phone2: string;
   workplace: string;
@@ -10,6 +11,10 @@ export interface UserProfile {
   bio: string;
   role: 'user' | 'admin';
   adminRole?: string;
+  // Admin settings
+  appointmentDuration?: 10 | 20 | 30;
+  bufferTime?: 5 | 10;
+  unavailableDates?: string[];
 }
 
 export interface Appointment {
@@ -20,11 +25,22 @@ export interface Appointment {
   adminName: string;
   adminRole: string;
   dateTime: string;
+  duration: number;
   purpose: string;
   phone: string;
   status: 'pending' | 'approved' | 'rejected' | 'completed';
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Notification {
+  id: string;
+  userId: string;
+  title: string;
+  message: string;
+  type: 'info' | 'warning' | 'success' | 'error';
+  read: boolean;
+  createdAt: string;
 }
 
 export const ADMIN_ACCOUNTS = [
