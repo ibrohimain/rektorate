@@ -223,7 +223,35 @@ const AuthPage = () => {
         await setDoc(doc(db, 'users', user.uid), profile);
       }
     } catch (err: any) {
-      setError(err.message);
+      console.error("Auth Error:", err.code, err.message);
+      
+      let message = 'Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.';
+      
+      switch (err.code) {
+        case 'auth/email-already-in-use':
+          message = 'Ushbu email manzili allaqachon ro\'yxatdan o\'tgan. Iltimos, boshqa email kiriting yoki tizimga kiring.';
+          break;
+        case 'auth/invalid-email':
+          message = 'Email manzili noto\'g\'ri kiritilgan.';
+          break;
+        case 'auth/weak-password':
+          message = 'Parol juda kuchsiz (kamida 6 ta belgi bo\'lishi kerak).';
+          break;
+        case 'auth/user-not-found':
+          message = 'Foydalanuvchi topilmadi.';
+          break;
+        case 'auth/wrong-password':
+          message = 'Parol noto\'g\'ri.';
+          break;
+        case 'auth/invalid-credential':
+          message = 'Email yoki parol noto\'g\'ri.';
+          break;
+        case 'auth/too-many-requests':
+          message = 'Juda ko\'p urinishlar. Iltimos, birozdan so\'ng qayta urinib ko\'ring.';
+          break;
+      }
+      
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -315,14 +343,24 @@ const ProfileSetup = ({ profile, onComplete, onCancel }: { profile: UserProfile,
     <div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-slate-900">Profilni tahrirlash</h2>
-        {onCancel && (
-          <button 
-            onClick={onCancel}
-            className="text-slate-500 hover:text-slate-700 p-2"
-          >
-            Bekor qilish
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {onCancel ? (
+            <button 
+              onClick={onCancel}
+              className="text-slate-500 hover:text-slate-700 p-2 text-sm font-medium"
+            >
+              Bekor qilish
+            </button>
+          ) : (
+            <button 
+              onClick={() => signOut(auth)}
+              className="text-red-500 hover:text-red-700 p-2 text-sm font-medium flex items-center gap-1"
+            >
+              <LogOut size={16} />
+              Chiqish
+            </button>
+          )}
+        </div>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

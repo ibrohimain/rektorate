@@ -44,12 +44,12 @@ export const ADMIN_ACCOUNTS = [
     fullName: 'Eshbekova Sanobar Omonliqovna'
   },
   { 
-    email: 'yorqinjon@gmail.com', 
+    email: 'yorqin101@gmail.com', 
     role: 'Moliya-iqtisod ishlari bo’yicha prorektor',
     fullName: 'Rajabov Yorqinbek Sayfiddin o\'g\'li'
   },
   { 
-    email: 'ochilovmahsud@gmail.com', 
+    email: 'maxsudjon@gmail.com', 
     role: 'O\'quv ishlari bo\'yicha prorektor',
     fullName: 'Ochilov Makhsudjon Muradullayevich'
   }

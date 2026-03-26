@@ -16,10 +16,10 @@ service cloud.firestore {
         (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
          request.auth.token.email in [
            'alisherusmankulov@gmail.com',
-           'yorqinjon@gmail.com',
+           'yorqin101@gmail.com',
            'jamshid@gmail.com',
            'sanobar@gmail.com',
-           'ochilovmahsud@gmail.com'
+           'maxsudjon@gmail.com'
          ]);
     }
 
